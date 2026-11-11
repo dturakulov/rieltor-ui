@@ -196,8 +196,8 @@ export const translations = {
     heroTitle: "Найдите проверенную квартиру без лишних переплат",
     heroSubtitle:
       "Юридически чистые квартиры и комнаты, прозрачные цены и организация личного показа.",
-    heroBookCta: "Записаться на показ",
-    heroCatalogCta: "Смотреть объекты",
+    heroBookCta: "На просмотр",
+    heroCatalogCta: "Все объекты",
     statYears: "лет опыта",
     statDeals: "закрытых сделок",
     statTrust: "довольных клиентов",

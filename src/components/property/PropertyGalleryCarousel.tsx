@@ -58,6 +58,7 @@ export function PropertyGalleryCarousel({
               fill
               sizes="(max-width: 430px) 100vw, 430px"
               priority={idx === 0}
+              loading="eager"
               className="object-cover"
             />
           </div>
@@ -66,24 +67,26 @@ export function PropertyGalleryCarousel({
 
       {images.length > 1 && (
         <>
-          <button
-            type="button"
-            onClick={() => scrollTo(activeIndex - 1)}
-            disabled={activeIndex === 0}
-            aria-label={t.prevPhoto}
-            className="absolute left-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-[var(--bg-surface)]/85 text-[var(--text-primary)] shadow-sm backdrop-blur-xs transition hover:bg-white disabled:opacity-35"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            type="button"
-            onClick={() => scrollTo(activeIndex + 1)}
-            disabled={activeIndex === images.length - 1}
-            aria-label={t.nextPhoto}
-            className="absolute right-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-[var(--bg-surface)]/85 text-[var(--text-primary)] shadow-sm backdrop-blur-xs transition hover:bg-white disabled:opacity-35"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
+          {activeIndex > 0 && (
+            <button
+              type="button"
+              onClick={() => scrollTo(activeIndex - 1)}
+              aria-label={t.prevPhoto}
+              className="absolute left-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-[var(--bg-surface)]/90 text-[var(--text-primary)] shadow-sm backdrop-blur-xs transition hover:bg-white active:scale-95"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+          )}
+          {activeIndex < images.length - 1 && (
+            <button
+              type="button"
+              onClick={() => scrollTo(activeIndex + 1)}
+              aria-label={t.nextPhoto}
+              className="absolute right-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-[var(--bg-surface)]/90 text-[var(--text-primary)] shadow-sm backdrop-blur-xs transition hover:bg-white active:scale-95"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          )}
 
           <div className="pointer-events-none absolute bottom-3 left-3 rounded-full bg-[var(--text-primary)]/75 px-2.5 py-1 text-[11px] font-semibold tabular-nums text-white backdrop-blur-xs">
             {activeIndex + 1} / {images.length}
