@@ -9,6 +9,8 @@ describe("phone normalization and booking validation", () => {
     assert.equal(normalizeUzPhone("93 555 44 33"), "+998935554433");
     assert.equal(normalizeUzPhone("12345"), null);
     assert.equal(normalizeUzPhone("+7 999 123 45 67"), null);
+    assert.equal(normalizeUzPhone("+998 00 123 45 67"), null);
+    assert.equal(normalizeUzPhone("998111234567"), null);
   });
 
   it("rejects whitespace-only names and invalid phone numbers", () => {

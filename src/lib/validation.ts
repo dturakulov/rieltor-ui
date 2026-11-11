@@ -14,7 +14,7 @@ export type BookingFieldErrorKey =
 export function normalizeUzPhone(raw: string): string | null {
   const digits = raw.replace(/\D/g, "");
 
-  if (digits.length === 12 && digits.startsWith("998")) {
+  if (digits.length === 12 && /^998[2-9]\d{8}$/.test(digits)) {
     return `+${digits}`;
   }
 
