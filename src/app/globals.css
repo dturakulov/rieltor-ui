@@ -1,26 +1,157 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-backdrop: #F1EDE6;
+  --bg-canvas: #FAF8F5;
+  --bg-surface: #FFFFFF;
+  --bg-muted: #F3EFE8;
+  --text-primary: #18181B;
+  --text-secondary: #52525B;
+  --text-muted: #71717A;
+  --accent-primary: #1E4D3B;
+  --accent-primary-hover: #173B2D;
+  --accent-warm: #B45309;
+  --accent-warm-soft: #FEF3C7;
+  --border-hairline: #E5DFD5;
+  --border-strong: #CFC6B8;
+  --semantic-success: #15803D;
+  --semantic-danger: #B42318;
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-backdrop: var(--bg-backdrop);
+  --color-canvas: var(--bg-canvas);
+  --color-surface: var(--bg-surface);
+  --color-muted-surface: var(--bg-muted);
+  --color-ink: var(--text-primary);
+  --color-ink-secondary: var(--text-secondary);
+  --color-accent: var(--accent-primary);
+  --color-warm: var(--accent-warm);
+  --color-hairline: var(--border-hairline);
+  --font-sans: var(--font-plus-jakarta);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: light;
+  background-color: var(--bg-backdrop);
+  color: var(--text-primary);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  font-family: var(--font-plus-jakarta), system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-backdrop);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Native <dialog> Bottom Sheet */
+dialog.makon-sheet {
+  margin: auto auto 0 auto;
+  padding: 0;
+  border: 0;
+  width: 100%;
+  max-width: 430px;
+  max-height: 88dvh;
+  border-radius: 22px 22px 0 0;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  box-shadow: 0 -12px 40px rgba(24, 24, 27, 0.16);
+  opacity: 0;
+  transition-property: opacity, transform, display, overlay;
+  transition-duration: 0.26s;
+  transition-timing-function: var(--ease-standard);
+  transition-behavior: allow-discrete;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  dialog.makon-sheet {
+    transform: translateY(100%);
+  }
+}
+
+dialog.makon-sheet:modal {
+  overscroll-behavior: contain;
+}
+
+dialog.makon-sheet::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background-color: rgba(24, 24, 27, 0);
+  transition-property: background-color, display, overlay;
+  transition-duration: 0.26s;
+  transition-timing-function: var(--ease-standard);
+  transition-behavior: allow-discrete;
+}
+
+dialog.makon-sheet[open]:where(:not([data-closing])) {
+  opacity: 1;
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  dialog.makon-sheet[open]:where(:not([data-closing])) {
+    transform: translateY(0);
+    @starting-style {
+      opacity: 1;
+      transform: translateY(100%);
+    }
+  }
+}
+
+dialog.makon-sheet[open]:where(:not([data-closing]))::backdrop {
+  background-color: rgba(24, 24, 27, 0.45);
+  @starting-style {
+    background-color: rgba(24, 24, 27, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  dialog.makon-sheet,
+  dialog.makon-sheet::backdrop {
+    transition-duration: 0.1s;
+  }
+}
+
+/* Native scroll-snap gallery track */
+.makon-carousel-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  touch-action: pan-x pan-y;
+  scrollbar-width: none;
+}
+.makon-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .makon-carousel-track {
+    scroll-behavior: smooth;
+  }
+}
+.makon-carousel-track > * {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
 }
